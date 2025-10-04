@@ -1,0 +1,79 @@
+LIGHTHOUSE REMOTE WORK - Asset List
+=====================================
+
+All visuals are currently rendered programmatically using HTML5 Canvas.
+If you'd like to replace any of these with actual image assets, here's what would be needed:
+
+BACKGROUND ASSETS:
+------------------
+- sky-background.png (1200x150px) - Night sky gradient background for top portion
+- ocean-background.png (1200x550px) - Water texture/pattern for ocean area
+- stars.png (various sizes) - Optional twinkling stars for atmosphere
+
+LIGHTHOUSE ASSETS:
+------------------
+- lighthouse-base.png (40x50px) - Main lighthouse tower structure
+- lighthouse-top.png (30x30px) - Lighthouse lamp chamber at the top
+- lighthouse-light-beam.png (800x800px) - Semi-transparent beam texture (radial gradient)
+
+BOAT ASSETS:
+------------
+- boat-red.png (60x30px) - Red fishing boat
+- boat-blue.png (60x30px) - Blue fishing boat
+- boat-teal.png (60x30px) - Teal fishing boat
+- boat-yellow.png (60x30px) - Yellow fishing boat
+- boat-green.png (60x30px) - Green fishing boat
+- boat-cabin.png (20x15px) - Small cabin structure on boats
+- warning-icon.png (24x24px) - Red exclamation mark for collision warnings
+
+OBSTACLE ASSETS:
+----------------
+- rock-small.png (40x40px) - Small rock obstacle
+- rock-medium.png (60x60px) - Medium rock obstacle
+- rock-large.png (80x80px) - Large rock obstacle
+- rock-texture.png (variable) - Optional texture overlay for rocks
+
+UI ASSETS:
+----------
+- title-logo.png (600x200px) - Game title "Lighthouse Remote Work"
+- qr-code-frame.png (240x240px) - Decorative frame around QR code
+- button-normal.png (200x60px) - Normal button state
+- button-hover.png (200x60px) - Button hover state
+- button-disabled.png (200x60px) - Disabled button state
+- game-over-banner.png (800x400px) - Game over screen banner
+
+MOBILE CONTROLLER ASSETS:
+--------------------------
+- wheel-outer.png (300x300px) - Outer wheel ring
+- wheel-inner.png (280x280px) - Inner wheel background
+- wheel-knob.png (90x90px) - Draggable knob on the wheel
+- wheel-tick-marks.png (300x300px) - Tick marks around the wheel edge
+- compass-needle.png (200x10px) - Direction indicator
+
+SOUND EFFECTS (not implemented, but would enhance the game):
+------------------------------------------------------------
+- boat-horn.wav - When boats spawn
+- lighthouse-rotate.wav - Ambient lighthouse rotation sound
+- collision-warning.wav - Warning beep when boats are about to crash
+- crash.wav - Boat collision sound (game over)
+- boat-saved.wav - Success sound when boat reaches destination
+- connection-success.wav - When phone connects to desktop
+- button-click.wav - UI button press sound
+- ocean-ambience.wav - Background ocean waves sound
+
+FONTS (if custom fonts are desired):
+------------------------------------
+- Currently using Arial (system font)
+- Could use: "Lighthouse" themed font for title
+- Could use: Monospace font for access code display
+
+NOTES:
+------
+All current graphics are drawn using canvas primitives (circles, rectangles, gradients).
+The game is fully playable without any image assets.
+Adding custom assets would enhance visual polish and theme.
+
+If you create any of these assets, simply:
+1. Add the image files to an "assets" or "images" folder
+2. Update the corresponding draw functions in game.js and mobile.js
+3. Preload images in main.js before starting the game

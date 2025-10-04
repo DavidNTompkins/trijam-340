@@ -1,0 +1,20 @@
+Hey! Thank you for joining the team. We are going to build a complete web game called "Lighthouse Remote Work" This game is a submission to an gamejam, and needs to be able to run on itch.io. We will upload the completed game as a zip folder. 
+
+This game plays as follows:
+- Players first see a title screen that has a QR Code and a 4 digit access code. This QR code leads to the game and is an easy way for users to load the game on their phone as well. 
+- If players are on their phone, they can enter the code to link their phone and their desktop sessions. 
+- Their phone acts as the controller for the game. I would recommend webrtc or a websocket - but note that everything needs to be done entirely in-browser between the two as we do not have a server for this game.
+
+- After syncing the phone and desktop, players can start the game. The game play is as follows:
+- On Desktop:
+-- Boats move across the screen from left to right and right to left. They move directly across, unless there is an obstacle in their way that they can see, in which case they navigate around it. 
+-- Boats can only see obstacles if they are within their vision range AND if the obstacle is illuminated.
+-- When boats are about to crash, a red ! appears near them.
+-- Illumination comes from top-middle of the screen, and is controlled by the player
+
+- On Mobile:
+-- Players can spin a wheel left or right. This controls the lighthouse and changes the direction of the illumination.
+
+Can you please build this in full? Please create also an asset-list.txt document and include the names of any images you would like me to add.
+
+Thank you!

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lighthouse Remote Work</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Title Screen -->
+    <div id="titleScreen" class="screen active">
+        <div id="remoteDesktop">
+            <div id="desktopHeader">
+                <div class="desktopIcon">LH-OPS</div>
+                <div class="desktopTitle">LIGHTHOUSE OPERATIONS - Remote Access Portal</div>
+                <div class="desktopStatus">
+                    <span class="statusDot"></span>
+                    <span>SECURE</span>
+                </div>
+            </div>
+
+            <div id="loginPanel">
+                <h2>LIGHTHOUSE REMOTE WORK</h2>
+                <p class="subtitle">Remote Lighthouse Control System v2.4</p>
+
+                <div class="infoBox">
+                    <div class="infoHeader">MOBILE AUTHENTICATION REQUIRED</div>
+                    <div class="infoContent">
+                        <p>To access the remote lighthouse control system, connect your authorized mobile device.</p>
+                        <p class="instructionText">Open this page on your mobile device and enter the access code below.</p>
+                    </div>
+                </div>
+
+                <div id="connectionSetup">
+                    <div class="connectionMethods">
+                        <div class="method">
+                            <h3>MOBILE ACCESS CODE</h3>
+                            <div id="accessCodeDisplay">
+                                <div class="codeLabel">ENTER THIS CODE ON YOUR MOBILE DEVICE</div>
+                                <div id="accessCode" class="accessCodeBox">----</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="connectionStatus" class="statusBar">
+                        <span class="statusIcon">[...]</span>
+                        <span class="statusText">Waiting for mobile device authentication...</span>
+                    </div>
+
+                    <button id="startGameBtn" class="beginButton" disabled>
+                        BEGIN OPERATIONS
+                    </button>
+                </div>
+
+                <div class="footer">
+                    <p class="warning">WARNING: Unauthorized access is prohibited</p>
+                    <p class="copyright">Maritime Safety Division - Remote Operations</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Controller Screen -->
+    <div id="mobileScreen" class="screen">
+        <h2>Lighthouse Controller</h2>
+        <div id="codeEntry">
+            <input type="text" id="codeInput" placeholder="Enter 4-digit code" maxlength="4" pattern="[0-9]*" inputmode="numeric">
+            <button id="connectBtn">Connect</button>
+        </div>
+        <div id="controllerArea" style="display: none;">
+            <p>Connection: <span id="mobileStatus">Connected</span></p>
+            <div id="wheelContainer">
+                <canvas id="controlWheel"></canvas>
+            </div>
+            <p class="instruction">Drag to rotate the lighthouse beam</p>
+        </div>
+    </div>
+
+    <!-- Game Screen (Desktop) -->
+    <div id="gameScreen" class="screen">
+        <canvas id="gameCanvas"></canvas>
+        <div id="gameUI">
+            <p>Score: <span id="score">0</span></p>
+            <p>Boats Saved: <span id="boatsSaved">0</span></p>
+        </div>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="gameOverScreen" class="screen">
+        <h1>Game Over!</h1>
+        <p>Final Score: <span id="finalScore">0</span></p>
+        <p>Boats Saved: <span id="finalBoatsSaved">0</span></p>
+        <button id="restartBtn">Play Again</button>
+    </div>
+
+    <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+    <script src="audio.js"></script>
+    <script src="game.js"></script>
+    <script src="mobile.js"></script>
+    <script src="network.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
