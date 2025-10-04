@@ -3,6 +3,7 @@ class AudioManager {
     constructor() {
         this.audioContext = null;
         this.backgroundMusic = null;
+        this.backgroundMusicAudio = null;
         this.sounds = {};
         this.musicGain = null;
         this.sfxGain = null;
@@ -33,7 +34,7 @@ class AudioManager {
 
     // Load the airhorn sound effect
     loadAirhorn() {
-        const audio = new Audio('assets/airhorn.mp3');
+        const audio = new Audio('assets/foghorn.wav');
         audio.volume = 0.5;
         audio.preload = 'auto';
         this.sounds.airhorn = audio;
@@ -48,12 +49,25 @@ class AudioManager {
         }
     }
 
-    // Procedurally generated nautical background music
+    // Load and play background music MP3
     startBackgroundMusic() {
+        this.stopBackgroundMusic();
+
+        // Try to load background.mp3 first
+        this.backgroundMusicAudio = new Audio('assets/background.mp3');
+        this.backgroundMusicAudio.volume = 0.3;
+        this.backgroundMusicAudio.loop = true;
+        this.backgroundMusicAudio.play().catch(err => {
+            console.warn('Failed to play background music:', err);
+            // Fallback to procedural music if MP3 fails
+            this.startProceduralMusic();
+        });
+    }
+
+    // Procedurally generated nautical background music (fallback)
+    startProceduralMusic() {
         if (!this.initialized) this.init();
         if (!this.audioContext) return;
-
-        this.stopBackgroundMusic();
 
         // Create oscillators for ambient ocean sounds
         const now = this.audioContext.currentTime;
@@ -177,6 +191,14 @@ class AudioManager {
     }
 
     stopBackgroundMusic() {
+        // Stop MP3 audio if playing
+        if (this.backgroundMusicAudio) {
+            this.backgroundMusicAudio.pause();
+            this.backgroundMusicAudio.currentTime = 0;
+            this.backgroundMusicAudio = null;
+        }
+
+        // Stop procedural music if playing
         if (this.backgroundMusic) {
             // Stop all oscillators
             this.backgroundMusic.oscillators.forEach(osc => {

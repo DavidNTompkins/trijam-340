@@ -46,14 +46,12 @@ function initDesktop(result) {
         if (connected) {
             statusIcon.textContent = '[OK]';
             statusText.textContent = 'Mobile device authenticated successfully';
-            statusBar.style.borderColor = '#4eff4e';
-            statusBar.style.background = 'rgba(78, 255, 78, 0.1)';
+            statusText.style.color = '#008000';
             startButton.disabled = false;
         } else {
             statusIcon.textContent = '[ERR]';
             statusText.textContent = 'Mobile device disconnected';
-            statusBar.style.borderColor = '#ff4e4e';
-            statusBar.style.background = 'rgba(255, 78, 78, 0.1)';
+            statusText.style.color = '#ff0000';
             startButton.disabled = true;
         }
     });
@@ -157,8 +155,8 @@ function startGame() {
     const gameCanvas = document.getElementById('gameCanvas');
     game = new Game(gameCanvas);
 
-    game.onGameOver = (score, boatsSaved) => {
-        handleGameOver(score, boatsSaved);
+    game.onGameOver = (score, boatsSaved, crashCount) => {
+        handleGameOver(score, boatsSaved, crashCount);
     };
 
     game.start();
@@ -183,21 +181,35 @@ function gameLoop(currentTime) {
     // Update UI
     document.getElementById('score').textContent = game.score;
     document.getElementById('boatsSaved').textContent = game.boatsSaved;
+    document.getElementById('crashes').textContent = game.crashCount;
 
     // Continue loop
     requestAnimationFrame(gameLoop);
 }
 
-function handleGameOver(score, boatsSaved) {
-    console.log('Game Over! Score:', score, 'Boats Saved:', boatsSaved);
+function handleGameOver(score, boatsSaved, crashCount) {
+    console.log('Game Over! Score:', score, 'Boats Saved:', boatsSaved, 'Crashes:', crashCount);
 
     // Stop background music
     if (typeof audioManager !== 'undefined') {
         audioManager.stopBackgroundMusic();
     }
 
-    // Show game over screen
+    // Show game over screen with fade effect
     showScreen('gameOverScreen');
+
+    // Reset animations by removing and re-adding the class
+    const fadeOverlay = document.getElementById('fadeOverlay');
+    const gameOverContent = document.getElementById('gameOverContent');
+
+    fadeOverlay.style.animation = 'none';
+    gameOverContent.style.animation = 'none';
+
+    setTimeout(() => {
+        fadeOverlay.style.animation = '';
+        gameOverContent.style.animation = '';
+    }, 10);
+
     document.getElementById('finalScore').textContent = score;
     document.getElementById('finalBoatsSaved').textContent = boatsSaved;
 }
@@ -212,12 +224,7 @@ function showScreen(screenId) {
     }
 }
 
-// Handle window resize
-window.addEventListener('resize', () => {
-    if (game && network.isDesktop) {
-        // Could adjust canvas size if needed
-    }
-});
+// Handle window resize - game handles its own resize via the resize listener in constructor
 
 // Prevent accidental page navigation
 window.addEventListener('beforeunload', (e) => {

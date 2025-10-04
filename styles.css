@@ -35,139 +35,142 @@ h2 {
     margin: 10px 0;
 }
 
-/* Title Screen - Remote Desktop Style */
+/* Title Screen - Simple Late 90's Style */
 #remoteDesktop {
     width: 90%;
-    max-width: 900px;
-    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-    border: 3px solid #4a90e2;
-    border-radius: 15px;
-    box-shadow: 0 0 50px rgba(74, 144, 226, 0.5);
+    max-width: 700px;
+    background: #c0c0c0;
+    border: 2px outset #ffffff;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3);
     overflow: hidden;
 }
 
 #desktopHeader {
-    background: linear-gradient(to bottom, #2d5f9e, #1e3c72);
-    padding: 15px 25px;
+    background: #000080;
+    padding: 5px 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 2px solid #4a90e2;
+    border-bottom: none;
 }
 
 .desktopIcon {
     font-size: 0.9em;
     font-weight: bold;
-    font-family: 'Courier New', monospace;
-    color: #4a90e2;
-    background: rgba(0, 0, 0, 0.3);
-    padding: 5px 10px;
-    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    color: #ffffff;
 }
 
 .desktopTitle {
     flex: 1;
     text-align: center;
     font-weight: bold;
-    font-size: 1.1em;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    font-size: 0.95em;
+    font-family: Arial, sans-serif;
+    color: #ffffff;
 }
 
 .desktopStatus {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 5px;
     font-size: 0.85em;
-    color: #4eff4e;
+    font-family: Arial, sans-serif;
+    color: #ffffff;
 }
 
 .statusDot {
     width: 8px;
     height: 8px;
-    background: #4eff4e;
+    background: #00ff00;
     border-radius: 50%;
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
+    animation: none;
 }
 
 #loginPanel {
-    padding: 40px;
+    padding: 20px;
     text-align: center;
 }
 
 #loginPanel h2 {
-    font-size: 2.5em;
+    font-size: 1.8em;
     margin-bottom: 10px;
-    text-shadow: 2px 2px 10px rgba(255, 215, 0, 0.5);
+    font-family: Arial, sans-serif;
+    color: #000080;
+    text-shadow: none;
 }
 
 .subtitle {
-    font-family: 'Courier New', monospace;
-    color: #4a90e2;
-    margin-bottom: 30px;
+    font-family: Arial, sans-serif;
+    color: #000000;
+    margin-bottom: 20px;
     font-size: 0.9em;
 }
 
 .infoBox {
-    background: rgba(0, 0, 0, 0.3);
-    border: 2px solid #4a90e2;
-    border-radius: 10px;
-    margin: 20px 0;
+    background: #ffffff;
+    border: 2px inset #808080;
+    border-radius: 0;
+    margin: 15px 0;
     overflow: hidden;
 }
 
 .infoHeader {
-    background: #4a90e2;
-    padding: 10px;
+    background: #c0c0c0;
+    border-bottom: 1px solid #808080;
+    padding: 5px 10px;
     font-weight: bold;
-    color: #fff;
+    font-family: Arial, sans-serif;
+    color: #000000;
+    text-align: left;
 }
 
 .infoContent {
-    padding: 15px;
+    padding: 10px;
     text-align: left;
 }
 
 .infoContent p {
-    line-height: 1.6;
+    line-height: 1.4;
+    font-family: Arial, sans-serif;
+    color: #000000;
+    font-size: 0.9em;
 }
 
 #connectionSetup {
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 .connectionMethods {
     display: flex;
-    gap: 30px;
+    gap: 20px;
     justify-content: center;
-    margin: 30px 0;
+    margin: 20px 0;
     flex-wrap: wrap;
 }
 
 .method {
-    background: rgba(0, 0, 0, 0.2);
-    padding: 30px 40px;
-    border-radius: 10px;
-    border: 2px solid #4a90e2;
-    min-width: 400px;
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 0;
+    border: 2px inset #808080;
+    min-width: 300px;
 }
 
 .instructionText {
-    margin-top: 10px;
-    font-size: 0.9em;
-    color: #4a90e2;
+    margin-top: 8px;
+    font-size: 0.85em;
+    font-family: Arial, sans-serif;
+    color: #000000;
 }
 
 .method h3 {
-    font-size: 1em;
-    margin-bottom: 15px;
-    color: #4a90e2;
-    text-transform: uppercase;
+    font-size: 0.95em;
+    margin-bottom: 10px;
+    font-family: Arial, sans-serif;
+    color: #000080;
+    text-transform: none;
+    font-weight: bold;
 }
 
 #qrCodeContainer {
@@ -179,62 +182,70 @@ h2 {
 }
 
 .codeLabel {
-    font-size: 0.8em;
-    color: #4a90e2;
-    margin-bottom: 10px;
+    font-size: 0.9em;
+    font-family: Arial, sans-serif;
+    color: #000080;
+    margin-bottom: 8px;
+    font-weight: bold;
 }
 
 .accessCodeBox {
-    font-size: 3em;
-    color: #ffd700;
-    letter-spacing: 15px;
+    font-size: 2.5em;
+    color: #000080;
+    letter-spacing: 10px;
     font-family: 'Courier New', monospace;
-    background: rgba(0, 0, 0, 0.3);
-    padding: 20px;
-    border-radius: 10px;
-    border: 2px solid #ffd700;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 0;
+    border: 2px inset #808080;
+    text-shadow: none;
 }
 
 .statusBar {
-    background: rgba(0, 0, 0, 0.3);
-    border: 2px solid #4a90e2;
-    padding: 15px;
-    border-radius: 10px;
-    margin: 20px 0;
+    background: #ffffff;
+    border: 2px inset #808080;
+    padding: 10px;
+    border-radius: 0;
+    margin: 15px 0;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
+    justify-content: flex-start;
+    gap: 8px;
 }
 
 .statusIcon {
-    font-size: 1.2em;
+    font-size: 1em;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
 }
 
 .statusText {
-    font-family: 'Courier New', monospace;
+    font-family: Arial, sans-serif;
+    font-size: 0.9em;
 }
 
 .beginButton {
-    background: linear-gradient(135deg, #ffd700, #ffed4e);
-    color: #0a1828;
-    font-size: 1.3em;
-    padding: 18px 50px;
-    border: none;
-    border-radius: 10px;
-    font-weight: bold;
+    background: #c0c0c0;
+    color: #000000;
+    font-size: 1em;
+    padding: 8px 25px;
+    border: 2px outset #ffffff;
+    border-radius: 0;
+    font-weight: normal;
+    font-family: Arial, sans-serif;
     cursor: pointer;
-    transition: all 0.3s;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
-    margin: 20px 0;
+    transition: none;
+    text-transform: none;
+    letter-spacing: 0;
+    box-shadow: none;
+    margin: 15px 0;
 }
 
 .beginButton:hover:not(:disabled) {
-    transform: scale(1.05);
-    box-shadow: 0 8px 30px rgba(255, 215, 0, 0.6);
+    background: #b0b0b0;
+    color: #000000;
+    transform: none;
+    box-shadow: none;
 }
 
 .beginButton:disabled {
@@ -244,43 +255,46 @@ h2 {
 }
 
 .footer {
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(74, 144, 226, 0.3);
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #808080;
 }
 
 .footer p {
     font-size: 0.8em;
+    font-family: Arial, sans-serif;
     margin: 5px 0;
     opacity: 0.7;
+    color: #000000;
 }
 
 .warning {
-    color: #ff6b6b;
-    text-transform: uppercase;
-    font-weight: bold;
+    color: #ff0000;
+    text-transform: none;
+    font-weight: normal;
 }
 
 .copyright {
-    font-family: 'Courier New', monospace;
-    color: #4a90e2;
+    font-family: Arial, sans-serif;
+    color: #000000;
 }
 
 button {
-    padding: 15px 40px;
-    font-size: 1.2em;
-    background: #ffd700;
-    color: #0a1828;
-    border: none;
-    border-radius: 10px;
+    padding: 8px 25px;
+    font-size: 1em;
+    background: #c0c0c0;
+    color: #000000;
+    border: 2px outset #ffffff;
+    border-radius: 0;
     cursor: pointer;
     margin: 10px;
-    transition: all 0.3s;
+    font-family: Arial, sans-serif;
+    transition: none;
 }
 
 button:hover:not(:disabled) {
-    background: #ffed4e;
-    transform: scale(1.05);
+    background: #b0b0b0;
+    transform: none;
 }
 
 button:disabled {
@@ -294,82 +308,196 @@ button:disabled {
 }
 
 /* Mobile Screen */
+#mobileScreen {
+    background: #c0c0c0;
+    padding: 20px;
+}
+
+#mobileScreen h2 {
+    color: #000080;
+    font-family: Arial, sans-serif;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
 #codeEntry {
     text-align: center;
     margin: 20px 0;
+    background: #ffffff;
+    border: 2px inset #808080;
+    padding: 20px;
+    max-width: 400px;
+    margin: 20px auto;
 }
 
 #codeInput {
-    padding: 15px;
+    padding: 8px;
     font-size: 1.5em;
-    width: 200px;
+    width: 150px;
     text-align: center;
-    border: 2px solid #ffd700;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.9);
+    border: 2px inset #808080;
+    border-radius: 0;
+    background: #ffffff;
     margin-right: 10px;
+    font-family: 'Courier New', monospace;
 }
 
 #controllerArea {
     text-align: center;
+    background: #ffffff;
+    border: 2px inset #808080;
+    padding: 20px;
+    max-width: 400px;
+    margin: 20px auto;
+}
+
+#controllerArea p {
+    color: #000000;
+    font-family: Arial, sans-serif;
+}
+
+#controllerArea .instruction {
+    font-size: 0.9em;
+    color: #000080;
+    margin-top: 10px;
 }
 
 #wheelContainer {
-    margin: 30px 0;
+    margin: 20px 0;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 #controlWheel {
-    border: 3px solid #ffd700;
+    border: 2px solid #808080;
     border-radius: 50%;
-    box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+    box-shadow: inset 1px 1px 3px rgba(0,0,0,0.3);
 }
 
 #mobileStatus {
-    color: #4eff4e;
+    color: #008000;
+    font-weight: bold;
 }
 
 /* Game Screen */
+#gameScreen {
+    background: #c0c0c0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
 #gameCanvas {
     display: block;
     background: linear-gradient(to bottom, #0a1828 0%, #1a3a52 50%, #0f2c44 100%);
-    border: 2px solid #ffd700;
+    border: 2px outset #ffffff;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3);
+    max-width: 100%;
+    max-height: calc(100vh - 100px);
 }
 
 #gameUI {
     position: absolute;
-    top: 20px;
-    left: 20px;
-    background: rgba(0, 0, 0, 0.5);
-    padding: 15px 25px;
-    border-radius: 10px;
-    font-size: 1.2em;
+    top: 30px;
+    left: 30px;
+    background: #c0c0c0;
+    padding: 10px 15px;
+    border: 2px outset #ffffff;
+    border-radius: 0;
+    font-size: 1em;
+    font-family: Arial, sans-serif;
 }
 
 #gameUI p {
     margin: 5px 0;
+    color: #000000;
 }
 
 #gameUI span {
-    color: #ffd700;
+    color: #000080;
     font-weight: bold;
 }
 
 /* Game Over Screen */
 #gameOverScreen {
     text-align: center;
+    position: relative;
+    background: #c0c0c0;
+}
+
+#fadeOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+    pointer-events: none;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+#gameOverContent {
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    animation: contentFadeIn 0.5s 1s forwards;
+    background: #c0c0c0;
+    padding: 40px;
+    max-width: 600px;
+    margin: 0 auto;
+    border: 2px outset #ffffff;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3);
+}
+
+@keyframes contentFadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+#firedText {
+    color: #ff0000;
+    font-size: 3.5em;
+    margin-bottom: 30px;
+    text-shadow: none;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
 }
 
 #gameOverScreen p {
-    font-size: 1.5em;
+    font-size: 1.3em;
     margin: 10px 0;
+    color: #000000;
+    font-family: Arial, sans-serif;
 }
 
 #gameOverScreen span {
-    color: #ffd700;
+    color: #000080;
     font-weight: bold;
+}
+
+#gameOverScreen button {
+    margin-top: 20px;
+    background: #c0c0c0;
+    color: #000000;
+    border: 2px outset #ffffff;
+    padding: 8px 25px;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+}
+
+#gameOverScreen button:hover {
+    background: #b0b0b0;
 }
 
 /* Responsive */
@@ -385,5 +513,21 @@ button:disabled {
     #accessCodeDisplay h2 {
         font-size: 2em;
         letter-spacing: 5px;
+    }
+
+    /* Hide game UI (score panel) on mobile */
+    #gameUI {
+        display: none;
+    }
+
+    /* Make game screen fit mobile better */
+    #gameScreen {
+        padding: 10px;
+    }
+
+    /* Ensure mobile title is visible */
+    #mobileScreen h2 {
+        display: block;
+        font-size: 1.8em;
     }
 }

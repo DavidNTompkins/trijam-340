@@ -68,7 +68,7 @@
             <button id="connectBtn">Connect</button>
         </div>
         <div id="controllerArea" style="display: none;">
-            <p>Connection: <span id="mobileStatus">Connected</span></p>
+            <p><span id="mobileStatus"> </span></p>
             <div id="wheelContainer">
                 <canvas id="controlWheel"></canvas>
             </div>
@@ -82,15 +82,19 @@
         <div id="gameUI">
             <p>Score: <span id="score">0</span></p>
             <p>Boats Saved: <span id="boatsSaved">0</span></p>
+            <p>Crashes: <span id="crashes">0</span> / 3</p>
         </div>
     </div>
 
     <!-- Game Over Screen -->
     <div id="gameOverScreen" class="screen">
-        <h1>Game Over!</h1>
-        <p>Final Score: <span id="finalScore">0</span></p>
-        <p>Boats Saved: <span id="finalBoatsSaved">0</span></p>
-        <button id="restartBtn">Play Again</button>
+        <div id="fadeOverlay"></div>
+        <div id="gameOverContent">
+            <h1 id="firedText">You're Fired!</h1>
+            <p>Final Score: <span id="finalScore">0</span></p>
+            <p>Boats Saved: <span id="finalBoatsSaved">0</span></p>
+            <button id="restartBtn">Play Again</button>
+        </div>
     </div>
 
     <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>

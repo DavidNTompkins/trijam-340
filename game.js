@@ -3,16 +3,22 @@ class Game {
     constructor(canvas) {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
-        this.width = 1200;
-        this.height = 700;
-        this.canvas.width = this.width;
-        this.canvas.height = this.height;
+
+        // Set initial size based on available space
+        this.updateCanvasSize();
+
+        // Add resize listener
+        this.resizeHandler = () => this.updateCanvasSize();
+        window.addEventListener('resize', this.resizeHandler);
 
         // Game state
         this.running = false;
         this.score = 0;
         this.boatsSaved = 0;
         this.gameTime = 0;
+        this.crashCount = 0;
+        this.maxCrashes = 3;
+        this.crashedBoats = [];
 
         // Debug mode - toggle with 'D' key
         this.debugMode = false;
@@ -39,8 +45,8 @@ class Game {
         this.lighthouseAngle = 0; // Angle in radians
         this.lighthouseX = this.width / 2;
         this.lighthouseY = 50;
-        this.lightRange = 800; // Increased to cover full screen
-        this.lightBeamWidth = Math.PI / 6; // 30 degrees
+        this.lightRange = 1000; // Increased to cover full screen
+        this.lightBeamWidth = Math.PI / 5; // 30 degrees
 
         // Game objects
         this.boats = [];
@@ -50,9 +56,9 @@ class Game {
         // SPAWN TIMING - ADJUST THESE VALUES TO CHANGE DIFFICULTY
         // ==========================================
         this.lastBoatSpawn = 0;
-        this.boatSpawnInterval = 3000; // milliseconds between boat spawns (LOWER = more boats)
+        this.boatSpawnInterval = 6000; // milliseconds between boat spawns (LOWER = more boats)
         this.lastObstacleSpawn = 0;
-        this.obstacleSpawnInterval = 8000; // milliseconds between rock spawns (HIGHER = fewer rocks)
+        this.obstacleSpawnInterval = 10000; // milliseconds between rock spawns (HIGHER = fewer rocks)
         this.maxObstacles = 5; // Maximum number of rocks on screen
         // ==========================================
 
@@ -121,6 +127,37 @@ class Game {
         }
     }
 
+    updateCanvasSize() {
+        // Calculate available space (account for padding and UI)
+        const maxWidth = window.innerWidth - 80;  // 40px padding on each side
+        const maxHeight = window.innerHeight - 120; // Account for padding and UI elements
+
+        // Set aspect ratio (roughly 16:9 or similar)
+        const aspectRatio = 16 / 9;
+
+        let width = Math.min(maxWidth, 1200); // Max width 1200
+        let height = width / aspectRatio;
+
+        // If height is too tall, constrain by height instead
+        if (height > maxHeight) {
+            height = maxHeight;
+            width = height * aspectRatio;
+        }
+
+        // Ensure minimum size
+        width = Math.max(width, 800);
+        height = Math.max(height, 450);
+
+        this.width = width;
+        this.height = height;
+        this.canvas.width = width;
+        this.canvas.height = height;
+
+        // Update lighthouse position to stay centered
+        this.lighthouseX = this.width / 2;
+        this.lighthouseY = 50;
+    }
+
     init() {
         // Create initial obstacles
         this.spawnObstacle();
@@ -133,6 +170,8 @@ class Game {
         this.gameTime = 0;
         this.score = 0;
         this.boatsSaved = 0;
+        this.crashCount = 0;
+        this.crashedBoats = [];
         this.boats = [];
         this.obstacles = [];
         this.init();
@@ -150,9 +189,14 @@ class Game {
 
     spawnBoat() {
         const fromLeft = Math.random() < 0.5;
+
+        // Calculate spawn area based on current canvas size
+        const minY = this.height * 0.3; // Start at 30% down the screen
+        const maxY = this.height * 0.9; // End at 90% down the screen
+
         const boat = {
             x: fromLeft ? -50 : this.width + 50,
-            y: 200 + Math.random() * 400,
+            y: minY + Math.random() * (maxY - minY),
             width: 60,
             height: 30,
             speed: (0.5 + Math.random() * 1) * (fromLeft ? 1 : -1),
@@ -172,9 +216,15 @@ class Game {
     }
 
     spawnObstacle() {
+        // Calculate spawn area based on current canvas size
+        const minX = this.width * 0.15; // 15% from left edge
+        const maxX = this.width * 0.85; // 85% from left edge (15% from right)
+        const minY = this.height * 0.3; // 30% down
+        const maxY = this.height * 0.9; // 90% down
+
         const obstacle = {
-            x: 150 + Math.random() * (this.width - 300),
-            y: 200 + Math.random() * 400,
+            x: minX + Math.random() * (maxX - minX),
+            y: minY + Math.random() * (maxY - minY),
             radius: 20 + Math.random() * 30,
             illuminated: false
         };
@@ -226,9 +276,8 @@ class Game {
             if (nearestObstacle) {
                 const distToObstacle = this.getDistanceToObstacle(boat, nearestObstacle);
 
-                // Check if boat can see the obstacle
-                const canSee = boat.illuminated && nearestObstacle.illuminated &&
-                    distToObstacle < boat.visionRange;
+                // Check if boat can see the obstacle (rock must be illuminated and in vision range)
+                const canSee = nearestObstacle.illuminated && distToObstacle < boat.visionRange;
 
                 if (canSee) {
                     // Navigate around obstacle
@@ -240,8 +289,8 @@ class Game {
 
                     // Check for actual collision
                     if (distToObstacle < nearestObstacle.radius + boat.width / 2) {
-                        // Game over
-                        this.gameOver();
+                        // Crash!
+                        this.handleCrash(boat);
                         return;
                     }
                 }
@@ -358,6 +407,11 @@ class Game {
             }
         }
 
+        // Draw crashed boats (vertical, stationary)
+        for (let crashedBoat of this.crashedBoats) {
+            this.drawCrashedBoat(crashedBoat);
+        }
+
         // Draw boats
         for (let boat of this.boats) {
             this.drawBoat(boat);
@@ -453,6 +507,37 @@ class Game {
         this.ctx.arc(this.lighthouseX, this.lighthouseY, this.lightRange, startAngle, endAngle);
         this.ctx.closePath();
         this.ctx.fill();
+    }
+
+    drawCrashedBoat(boat) {
+        this.ctx.save();
+        this.ctx.translate(boat.x, boat.y);
+
+        // Rotate to vertical (sinking)
+        this.ctx.rotate(-Math.PI / 2);
+
+        // Draw boat using image assets if loaded
+        if (this.assets.loaded) {
+            const shipImage = this.assets.ships[boat.color];
+
+            if (shipImage && shipImage.complete) {
+                this.ctx.drawImage(shipImage, -boat.width / 2, -boat.height / 2, boat.width, boat.height);
+            } else {
+                // Fallback to drawn boat
+                this.ctx.fillStyle = this.getBoatColorHex(boat.color);
+                this.ctx.beginPath();
+                this.ctx.ellipse(0, 0, boat.width / 2, boat.height / 2, 0, 0, Math.PI * 2);
+                this.ctx.fill();
+            }
+        } else {
+            // Fallback to drawn boat
+            this.ctx.fillStyle = this.getBoatColorHex(boat.color);
+            this.ctx.beginPath();
+            this.ctx.ellipse(0, 0, boat.width / 2, boat.height / 2, 0, 0, Math.PI * 2);
+            this.ctx.fill();
+        }
+
+        this.ctx.restore();
     }
 
     drawBoat(boat) {
@@ -561,17 +646,47 @@ class Game {
         }
     }
 
-    gameOver() {
-        this.stop();
+    handleCrash(boat) {
+        this.crashCount++;
 
-        // Play airhorn sound on game over
+        // Play foghorn sound
         if (typeof audioManager !== 'undefined') {
             audioManager.playAirhorn();
         }
 
+        // Mark boat as crashed (vertical, stationary)
+        boat.crashed = true;
+        boat.speed = 0;
+
+        // Add to crashed boats list
+        this.crashedBoats.push({
+            x: boat.x,
+            y: boat.y,
+            width: boat.width,
+            height: boat.height,
+            color: boat.color
+        });
+
+        // Remove from active boats
+        const index = this.boats.indexOf(boat);
+        if (index > -1) {
+            this.boats.splice(index, 1);
+        }
+
+        // Check if game is over (3 crashes)
+        if (this.crashCount >= this.maxCrashes) {
+            setTimeout(() => {
+                this.gameOver();
+            }, 1000); // Pause for a second before game over
+        }
+    }
+
+    gameOver() {
+        this.stop();
+
         // Trigger game over event
         if (this.onGameOver) {
-            this.onGameOver(this.score, this.boatsSaved);
+            this.onGameOver(this.score, this.boatsSaved, this.crashCount);
         }
     }
 

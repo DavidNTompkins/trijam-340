@@ -120,7 +120,7 @@ class MobileController {
         this.ctx.fill();
 
         // Draw tick marks
-        this.ctx.strokeStyle = '#ffd700';
+        this.ctx.strokeStyle = '#ff7b00ff';
         this.ctx.lineWidth = 3;
         for (let i = 0; i < 12; i++) {
             const angle = (Math.PI * 2 / 12) * i;
@@ -139,8 +139,8 @@ class MobileController {
         }
 
         // Draw direction indicator (lighthouse beam direction) - pointing up
-        this.ctx.strokeStyle = '#ffed4e';
-        this.ctx.fillStyle = '#ffed4e';
+        this.ctx.strokeStyle = '#ffb84eff';
+        this.ctx.fillStyle = '#ffb84eff';
         this.ctx.lineWidth = 6;
         this.ctx.beginPath();
         this.ctx.moveTo(this.centerX, this.centerY);
@@ -197,7 +197,7 @@ class MobileController {
         this.ctx.textAlign = 'center';
         this.ctx.textBaseline = 'middle';
         const degrees = Math.round((this.currentAngle * 180 / Math.PI + 360) % 360);
-        this.ctx.fillText(`${degrees}°`, this.centerX, this.centerY);
+        //this.ctx.fillText(`${degrees}°`, this.centerX, this.centerY);
     }
 
     onRotate(callback) {
